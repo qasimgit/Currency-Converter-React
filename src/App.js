@@ -4,7 +4,7 @@ import "./App.css";
 import { Container } from "./componenets/container";
 
 function App() {
-  const [data, setData] = useState();
+  const [fetchData, setFetchData] = useState();
 
   const base_Url =
     "http://data.fixer.io/api/latest?access_key=1d07ce08032e97927c704ebf2d03b0dc";
@@ -13,17 +13,19 @@ function App() {
     const FetchData = async () => {
       try {
         const data = await axios.get(base_Url);
-        console.log(data);
+        setFetchData(data.data)
       } catch (error) {
         console.log("error", error);
       }
     };
-  });
+    FetchData();
+  },[]);
 
-  console.log(data)
+  console.log(fetchData)
+
   return (
     <div>
-      <Container />
+      <Container fetchedData={fetchData}/>
     </div>
   );
 }
